@@ -1,0 +1,25 @@
+version: '3'
+services:
+  hornet:
+    container_name: hornet
+    image: gohornet/hornet:latest
+    restart: always
+    ulimits:
+      nofile:
+        soft: 8192
+        hard: 8192
+    stop_grace_period: 5m
+    cap_drop:
+      - ALL
+    ports:
+      - "14265:14265/tcp"
+      - "8081:8081/tcp"
+      - "8091:8091/tcp"
+      - "9029:9029/tcp"
+    volumes:
+      - ./config.json:/app/config.json:ro
+      - ./peering.json:/app/peering.json
+      - ./profiles.json:/app/profiles.json:ro
+      - ./mainnetdb:/app/mainnetdb
+      - ./p2pstore:/app/p2pstore
+      - ./snapshots/mainnet:/app/snapshots/mainnet

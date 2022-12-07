@@ -1,0 +1,12 @@
+{
+  "peers": [
+    {
+    "multiAddress": "/dns/hornet.motorhash.de/tcp/15600/p2p/12D3KooWPk6c9n9cPaoLaP6JemZjuTqL7aPGp3VGWYrM4qumK8wH",
+    "alias": "green tea"
+  },
+  {
+    "multiAddress": "/dns/iclabgd.nchu.edu.tw/tcp/15600/p2p/12D3KooWPs5w8rz4v5LtGdyHatZd6m5yc8fgzXTZcY8RHMHkUvH7",
+    "alias": "gre"
+  }
+]
+}
