@@ -1,5 +1,5 @@
 ---
-title: 'hornet docker 建置'
+title: 'resberrypi (arm64)下的hornet docker 建置'
 disqus: Benson
 ---
 
@@ -8,21 +8,44 @@ resberrypi (arm64)下的hornet docker 建置
 
 [TOC]
 
-## 1. gohornet
+## 1. docker & ubuntu版本
+### 1.1 docker setup
+- 下載docker
+```shell=
+sudo apt-get update
+sudo apt-get install docker
+sudo apt-get install docker-compose
+```
+- 將自己的使用者帳號加入至 docker 群組：
+```shell=
+sudo usermod -aG docker your_account
+```
+### 1.2 docker版本截圖
+```shell=
+docker version
+```
+![](https://i.imgur.com/0H2miGD.png)
 
-### 1.1 clone:
+
+### 1.3 ubuntu版本截圖
+```shell=
+lsb_release -a
+```
+![](https://i.imgur.com/6eYgBAW.png)
+
+
+## 2. gohornet 
+### 2.1 clone:
 - git clone hornet，取得需要的檔案
 ```shell=
 git clone https://github.com/gohornet/hornet && cd hornet && git checkout production
 ```
-
-
-## 2. 修改檔案
+## 3. 修改檔案
 可參考 : https://github.com/benson0714/hornet_docker_windows
 
-### 2.1 確認必要檔案
-- 需要新增一個docker-compose.yml檔 (2.2)
-- 需要新增config.json檔，可參考config_defaults.json去設定 (2.3)
+### 3.1 確認必要檔案
+- 需要新增一個docker-compose.yml檔 (3.2)
+- 需要新增config.json檔，可參考config_defaults.json去設定 (3.3)
 - 官方網站會寫說需要手動新增**mainnetdb、snapshot、p2pstore**資料夾，略過此步驟，否則會衝突!!!
 
 ```shell=
@@ -32,7 +55,7 @@ git clone https://github.com/gohornet/hornet && cd hornet && git checkout produc
 ├── profiles.json
 ├── docker-compose.yml      <NEWLY ADDED FILE>
 ```
-### 2.2 修改docker-compose.yml內容
+### 3.2 修改docker-compose.yml內容
 ```yaml=
 version: '3'
 services:
@@ -60,7 +83,9 @@ services:
       - ./p2pstore:/app/p2pstore
       - ./snapshots/mainnet:/app/snapshots/mainnet
 ```
-### 2.3 修改config.json內容
+### 3.3 修改config.json內容
+- dashboard會需要先創密碼才可以進行登入，可參考 :
+https://wiki.iota.org/hornet/how_tos/using_docker#create-username-and-password-for-the-hornet-dashboard
 ```json
 {
   "restAPI": {
@@ -338,18 +363,18 @@ services:
   }
 }
 ```
-### 2.4 預先給定docker存取資料夾權限
+### 3.4 預先給定docker存取資料夾權限
 ```shell=
 sudo chown 65532:65532 mainnetdb
 sudo chown 65532:65532 p2pstore
 sudo chown -R 65532:65532 snapshots
 ```
-## 3. docker-compose 安裝
+## 4. docker-compose 安裝
 ```shell=
 docker-compose up -d
 ```
 
-## 參考
+## 5. 參考
 - hornet docker建置教學:
 https://wiki.iota.org/hornet/how_tos/using_docker
 - hornet參考github
