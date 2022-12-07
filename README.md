@@ -1,10 +1,9 @@
-<<<<<<< HEAD
 ---
 title: 'hornet docker 建置'
 disqus: Benson
 ---
 
-windows 下的hornet docker 建置
+resberrypi (arm64)下的hornet docker 建置
 ===
 
 [TOC]
@@ -14,25 +13,24 @@ windows 下的hornet docker 建置
 ### 1.1 clone:
 - git clone hornet，取得需要的檔案
 ```shell=
-git clone https://github.com/gohornet/hornet ; cd hornet ; git checkout production
+git clone https://github.com/gohornet/hornet && cd hornet && git checkout production
 ```
 
 
 ## 2. 修改檔案
+可參考 : https://github.com/benson0714/hornet_docker_windows
 
 ### 2.1 確認必要檔案
 - 需要新增一個docker-compose.yml檔 (2.2)
 - 需要新增config.json檔，可參考config_defaults.json去設定 (2.3)
+- 官方網站會寫說需要手動新增**mainnetdb、snapshot、p2pstore**資料夾，略過此步驟，否則會衝突!!!
+
 ```shell=
 .
 ├── config.json            <NEWLY ADDED FILE>
 ├── peering.json
 ├── profiles.json
 ├── docker-compose.yml      <NEWLY ADDED FILE>
-├── mainnetdb
-├── p2pstore
-└── snapshots
-    └── mainnet
 ```
 ### 2.2 修改docker-compose.yml內容
 ```yaml=
@@ -340,6 +338,12 @@ services:
   }
 }
 ```
+### 2.4 預先給定docker存取資料夾權限
+```shell=
+sudo chown 65532:65532 mainnetdb
+sudo chown 65532:65532 p2pstore
+sudo chown -R 65532:65532 snapshots
+```
 ## 3. docker-compose 安裝
 ```shell=
 docker-compose up -d
@@ -350,33 +354,3 @@ docker-compose up -d
 https://wiki.iota.org/hornet/how_tos/using_docker
 - hornet參考github
 https://github.com/gohornet/hornet
-=======
-# HORNET - The IOTA community node
-
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/gohornet/hornet/Build?style=for-the-badge) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/gohornet/hornet?style=for-the-badge) ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/gohornet/hornet?style=for-the-badge) ![GitHub](https://img.shields.io/github/license/gohornet/hornet?style=for-the-badge)
-
-<p><img src="https://raw.githubusercontent.com/gohornet/logo/master/HORNET_logo.svg?sanitize=true"></p>
-
-HORNET is a lightweight alternative to IOTA's fullnode software “[IRI](https://github.com/iotaledger/iri)”.
-The main advantage is that it compiles to native code and does not need a Java Virtual Machine, which considerably decreases the amount of needed resources while significantly increasing the performance.
-This way, HORNET is easier to install and runs on low-end devices.
-
----
-
-### Notes
-
-- **Currently HORNET is only released for testing purposes. Don't use it for wallet transfers (except testing with small amounts).**
-- **Please open a [new issue](https://github.com/gohornet/hornet/issues/new) if you detect an error or crash (or submit a PR if you have already fixed it).**
-- **Feature requests will be deleted, because we cannot handle them at the moment.**
-- **The issue section is not a support section, if you have questions about HORNET please post them in the `#hornet` channel ([official iota discord server](https://discord.iota.org/)).**
-
----
-
-### Run HORNET
-
-- Download the [latest release](https://github.com/gohornet/hornet/releases/latest) for your system (e.g. `HORNET-x.x.x_Linux_ARM.tar.gz` for the Raspberry Pi 3B)
-- Extract the files in a folder of your choice
-- Add neighbors to the config.json file
-- Download the latest HORNET snapshot from [dbfiles.iota.org](https://dbfiles.iota.org/mainnet/hornet/latest-export.gz.bin)
-- Run HORNET: `./hornet -c config`
->>>>>>> b09279f3 (Initial commit)
