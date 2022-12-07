@@ -6,8 +6,6 @@ disqus: Benson
 resberrypi (arm64)下的hornet docker 建置
 ===
 
-[TOC]
-
 ## 1. docker & ubuntu版本
 ### 1.1 docker setup
 - 下載docker
