@@ -369,7 +369,7 @@ sudo chown -R 65532:65532 snapshots
 ```
 ## 4. docker-compose 安裝
 ```shell=
-docker-compose up -d
+docker compose up -d
 ```
 
 ## 5. 參考
