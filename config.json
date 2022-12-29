@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "restAPI": {
     "bindAddress": "0.0.0.0:14265",
     "jwtAuth": {
@@ -272,7 +271,7 @@
   },
   "debug": {
     "whiteFlagParentsSolidTimeout": "2s"
-=======
+  },
   "api": {
     "auth": {
       "password": "",
@@ -359,6 +358,5 @@
   },
   "zmq": {
     "port": 5556
->>>>>>> b09279f3 (Initial commit)
   }
 }
